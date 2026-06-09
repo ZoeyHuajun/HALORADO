@@ -5,14 +5,15 @@ from sqlalchemy import Column, ForeignKey, Integer, String, text, MetaData,Table
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column,relationship
 from flask_migrate import Migrate
 from typing import List
-from exts import db
-from models import User
+from exts import db, migrate 
+import models
 
 app = Flask(__name__)
 app.config.from_object(config)
 
 #引用db from exts 初始化
 db.init_app(app)
+migrate.init_app(app,db)
 
 @app.route('/')
 def index():

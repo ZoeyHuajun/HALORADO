@@ -2,6 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, String, text, MetaData,Table
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column,relationship
+from flask_migrate import Migrate
 
 class Base(DeclarativeBase):
     metadata = MetaData(naming_convention={
@@ -17,4 +18,5 @@ class Base(DeclarativeBase):
     "pk": "pk_%(table_name)s"
     })
 
-db = SQLAlchemy(model_clas=Base)
+db = SQLAlchemy(model_class=Base)
+migrate = Migrate()
