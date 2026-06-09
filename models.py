@@ -50,7 +50,14 @@ class Recipes(db.Model):
      pub_date : Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     #食谱属于哪一个类别
      category_id : Mapped[int] = mapped_column(Integer,ForeignKey("recipe_category.id"))
-     category: Mapped[RecipeCategory] = relationship("RecipesCategory",back_populates="recipes")
+     category: Mapped[RecipeCategory] = relationship("RecipeCategory",back_populates="recipes")
 
      publish_id : Mapped[int] = mapped_column(Integer,ForeignKey("user.id"))
      publisher: Mapped[User] = relationship("User", back_populates="recipes")
+
+class VerificationCode(db.Model):
+     __tablename__="verification_code"
+     id: Mapped[int] = mapped_column(Integer,primary_key=True, autoincrement=True)
+     email: Mapped[str] = mapped_column(String(100))
+     code: Mapped[str] = mapped_column(String(10))
+     create_time : Mapped[datetime] = mapped_column(DateTime, default=datetime.now)

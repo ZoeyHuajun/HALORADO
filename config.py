@@ -7,3 +7,12 @@ PORT = 3306
 NAME = 'halorado'
 MODIFICATIONS = False
 SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}'
+
+# flask_mail init set fixed format
+MAIL_SERVER = "smtp.gmail.com"
+# ssl -> 465. TLS -> 587
+MAIL_USE_TLS = True
+MAIL_PORT = 587
+MAIL_USERNAME = "haloradostudio@gmail.com"
+MAIL_PASSWORD = "rbwtrtysdwdrlivi"
+MAIL_DEFAULT_SENDER = "haloradostudio@gmail.com"
