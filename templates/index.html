@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JINJIA2</title>
-</head>
-<body>
-  <h1>hello, this is jinjia 2 </h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %} HOME {% endblock %}
+{% block head_details %} 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block main %}
+
+{% endblock %}
