@@ -1,5 +1,10 @@
+import os
 
 SECRET_KEY = 'zhanghuajun'
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MEDIA_DIR = os.path.join(BASE_DIR,"media")
+
 USER = 'root'
 PASSWORD = '123456'
 HOST = '127.0.0.1'
@@ -16,3 +21,4 @@ MAIL_PORT = 587
 MAIL_USERNAME = "haloradostudio@gmail.com"
 MAIL_PASSWORD = "rbwtrtysdwdrlivi"
 MAIL_DEFAULT_SENDER = "haloradostudio@gmail.com"
+

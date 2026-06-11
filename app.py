@@ -12,6 +12,10 @@ import random
 import string
 from datetime import datetime,timedelta
 from flask import session
+import commands
+from decorators import login_required
+import uuid #random filename
+import os
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -20,7 +24,8 @@ app.config.from_object(config)
 db.init_app(app)
 migrate.init_app(app,db)
 mail.init_app(app)
-
+# bind the command from .py / will update the category as commands /nave ber
+app.cli.command("init_category")(commands.init_recipe_category)
 
 @app.before_request
 def before_request():
@@ -32,16 +37,26 @@ def before_request():
     else:
         g.user = None
 
+#　if every page has the part
 @app.context_processor
 def context_processor():
+    #scalars for multiple items  scalar for one
+    categories = db.session.scalars(db.select(RecipeCategory)).all()
     return {
-        'user':g.user
+        'user': g.user,
+        'categories' : categories
     }
 
 
 @app.route('/')
 def index():
     return render_template('index.html')    
+
+@app.post('/logout')
+def logout():
+    #log out
+    session.clear()
+    return redirect('/')
 
 @app.route('/login', methods= ['GET','POST'])
 def login():
@@ -97,8 +112,20 @@ def details(recipe_id):
     return render_template('recipes.html', recipe_id = recipe_id)
 
 @app.route('/pub_r')
+@login_required
 def public_recipes():
     return render_template('publish.html')
+
+@app.post('/upload/picture')
+def upload_pic():
+    #when upload. name is picture
+    picture = request.files.get("picture")
+    #rename
+    ext = picture.filename.split(".")[-1]
+    filename =f'{uuid.uuid4()},{ext}' # random picture name
+    picture_path = os.path.join(app.config['MEDIAN_DIR'],filename)
+    picture.save(picture_path)
+    return jsonify({"resualt":True, "message":None})
 
 @app.route('/qb')
 def pub():
