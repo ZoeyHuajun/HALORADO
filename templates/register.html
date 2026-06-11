@@ -12,14 +12,14 @@
             <div class="col">
                 <form method="POST" action="#">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
+                        <label for="reg-email">Email</label>
                         <input type="email" class="form-control" id="reg-email" aria-describedby="emailHelp" name="email">
                         <small id="emailHelp" class="form-text text-muted">* We will not use your email for other users. </small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Verification Code</label>
+                        <label for="reg-code">Verification Code</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="captcha">
+                            <input type="text" id="reg-code" class="form-control" name="code">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="captcha-btn">Get Verification Code</button>
                             </div>
@@ -27,17 +27,17 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Username</label>
-                        <input type="text" class="form-control" name="username">
+                        <input type="text" id="reg-username" class="form-control" name="username">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        <input type="password" class="form-control" id="reg-password" name="password">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" name="password_confirm">
+                        <input type="password" class="form-control" id="reg-com-password" name="password_confirm">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    <button type="button" class="btn btn-primary btn-block" id="register-btn">Register</button>
                 </form>
             </div>
             <div class="col"></div>

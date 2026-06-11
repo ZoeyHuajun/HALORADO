@@ -1,3 +1,4 @@
+//countdown
 function bindEmailCodeClick(){
     //bind click
     $("#captcha-btn").click(function(event){
@@ -42,11 +43,38 @@ function bindEmailCodeClick(){
         });
     });
 }
-
-
+// 5 mins limite
+function bindRegisterEvent(){
+    $("#register-btn").click(function(event){
+        event.preventDefault();
+        //email code same as the html name 
+        let email = $("#reg-email").val();
+        let code = $("#reg-code").val();
+        let username = $("#reg-username").val()
+        let password = $("#reg-password").val();
+        let comfirm_password = $("#reg-com-password").val();
+        if (comfirm_password != password){
+            alert("The two passwords do not match");
+            return;
+        }
+        //ajax
+        $.post({
+            url: "/register",
+            data:{email,code,username,password},
+            success: function(resp){
+                if (resp['result'] == true){
+                    window.location = "/login";
+                }else{
+                    let message = resp["message"];
+                    alert(message);
+                }
+            }
+        })
+    })
+}
 
 // 整个网页加载完成后
 $(function(){
     bindEmailCodeClick();
-    //bindRegisterEvent();
+    bindRegisterEvent();
 })

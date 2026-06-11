@@ -18,6 +18,8 @@ class User(db.Model):
 
     def __init__(self, *args, **kwargs):
           password = kwargs.get("password")
+          #keep others
+          super().__init__(*args, **kwargs)
           if password:
                kwargs.pop("password")
           self.password = password
