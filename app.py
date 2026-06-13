@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect,jsonify,g
+from flask import Flask, render_template, request,redirect,jsonify,g,send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import config
 from sqlalchemy import Column, ForeignKey, Integer, String, text, MetaData,Table
@@ -16,6 +16,7 @@ import commands
 from decorators import login_required
 import uuid #random filename
 import os
+from dlmodel import predict
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -114,7 +115,8 @@ def details(recipe_id):
 @app.route('/pub_r')
 @login_required
 def public_recipes():
-    return render_template('publish.html')
+    category = db.session.scalar(db.select(RecipeCategory)).all()
+    return render_template('publish.html', category = category)
 
 @app.post('/upload/picture')
 def upload_pic():
@@ -122,10 +124,23 @@ def upload_pic():
     picture = request.files.get("picture")
     #rename
     ext = picture.filename.split(".")[-1]
-    filename =f'{uuid.uuid4()},{ext}' # random picture name
-    picture_path = os.path.join(app.config['MEDIAN_DIR'],filename)
+    filename = f'{uuid.uuid4()}.{ext}' # random picture name
+    picture_path = os.path.join(app.config['MEDIA_DIR'],filename)
     picture.save(picture_path)
-    return jsonify({"resualt":True, "message":None})
+
+    category_name = predict(picture_path)
+    category = db.session.scalar(db.select(RecipeCategory).where(RecipeCategory.name == category_name))
+    if not category:
+        return jsonify({
+            "result":False,
+            "message":"Category not found"
+    })
+    return jsonify({
+        "result":True, 
+        "message":None,
+        "filename":filename,
+        "category": {"id":category.id, "name":category_name}
+    })
 
 @app.route('/qb')
 def pub():
@@ -167,6 +182,9 @@ def get_email_code():
     db.session.commit()
     return jsonify({"result": True, "message":None})
 
+@app.route('/media/<filename>')
+def media(filename):
+    return send_from_directory(config.MEDIA_DIR,filename)
 
 if __name__ == '__main__':  
     app.run(debug=True)

@@ -11,21 +11,21 @@ function bindUploadPicture(){
             data: formData,
             processData: false,
             contentType: false,
+            
             success: function (result){
                 const category = result['category'];
                 const filename = result['filename'];
 
-                console.log(category);
-                console.log(filename);
+                console.log(category)
+                console.log(filename)
 
-                let imagePreview = $("#image-preview");
-                imagePreview.attr("src", "/media/" + filename);
-                imagePreview.removeClass("hidden");
+                let imagePreview = $("#image-preview")
+                imagePreview.attr('src',"/media/"+filename);
+                imagePreview.removeClass('hidden');
+                $('#image-placeholder').hide();
+                $('#category').val(category.id);
+                $('#picture').val("/media/"+filename);
 
-                $("#image-placeholder").addClass("hidden");
-
-                $("#category").val(category.id);
-                $("#picture").val("/media/" + filename);
             }
         })
     });
