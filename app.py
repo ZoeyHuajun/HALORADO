@@ -51,7 +51,13 @@ def context_processor():
 
 @app.route('/')
 def index():
-    return render_template('index.html')    
+    category_id = request.args.get('category',type=int)
+    if category_id:
+        stmt = db.select(Recipes).where(Recipes.category_id == category_id)
+    else:
+        stmt = db.select(Recipes)
+    recipes = db.session.scalars(stmt.order_by(Recipes.pub_date.desc())).all()
+    return render_template('index.html',recipes = recipes)    
 
 @app.post('/logout')
 def logout():
@@ -110,13 +116,35 @@ def register():
 #details
 @app.route('/recipes/<int:recipe_id>')
 def details(recipe_id):
-    return render_template('recipes.html', recipe_id = recipe_id)
+    recipe = db.session.get(Recipes, recipe_id)
+    return render_template('recipes.html', recipe = recipe)
 
-@app.route('/pub_r')
+@app.route('/pub_r',methods = ['GET','POST'])
 @login_required
 def public_recipes():
-    category = db.session.scalar(db.select(RecipeCategory)).all()
-    return render_template('publish.html', category = category)
+    if request.method == 'GET':
+        category = db.session.scalars(db.select(RecipeCategory)).all()
+        return render_template('publish.html', category = category)
+    else:
+        picture = request.form.get("picture")
+        category_id = request.form.get("category")
+        name = request.form.get("name")
+        ingredient = request.form.get("ingredient")
+        step = request.form.get("content")
+        provider = request.form.get("provider")
+        recipes = Recipes(
+            picture = picture,
+            category_id = category_id,
+            name = name,
+            ingredient = ingredient,
+            step = step,
+            provider = provider,
+            publish_id = g.user.id
+        )
+        db.session.add(recipes)
+        db.session.commit()
+        return redirect('/')
+
 
 @app.post('/upload/picture')
 def upload_pic():
@@ -182,6 +210,10 @@ def get_email_code():
     db.session.commit()
     return jsonify({"result": True, "message":None})
 
+@app.route('/detail/<int:recipe_id>')
+def detail(recipe_id):
+    recipe = db.session.get(Recipes,recipe_id)
+    return render_template("detail.html", recipe = recipe)
 @app.route('/media/<filename>')
 def media(filename):
     return send_from_directory(config.MEDIA_DIR,filename)
