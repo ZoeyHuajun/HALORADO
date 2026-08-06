@@ -73,7 +73,7 @@ function bindRegisterEvent(){
     })
 }
 
-// 整个网页加载完成后
+// 整个网页加载完成后执行functions
 $(function(){
     bindEmailCodeClick();
     bindRegisterEvent();

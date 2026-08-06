@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request,redirect,jsonify,g,send_from_directory
+from ai_model import ask_ai
 from flask_sqlalchemy import SQLAlchemy
 import config
 from sqlalchemy import Column, ForeignKey, Integer, String, text, MetaData,Table
@@ -28,6 +29,7 @@ mail.init_app(app)
 # bind the command from .py / will update the category as commands /nave ber
 app.cli.command("init_category")(commands.init_recipe_category)
 
+#钩子函数
 @app.before_request
 def before_request():
     user_id = session.get('user.id')
@@ -38,7 +40,7 @@ def before_request():
     else:
         g.user = None
 
-#　if every page has the part
+#　if every page has the part 钩子函数
 @app.context_processor
 def context_processor():
     #scalars for multiple items  scalar for one
@@ -120,6 +122,7 @@ def details(recipe_id):
     return render_template('recipes.html', recipe = recipe)
 
 @app.route('/pub_r',methods = ['GET','POST'])
+#这是一个装饰器 自己定义的 必须加载到被限制的api下面
 @login_required
 def public_recipes():
     if request.method == 'GET':
@@ -174,9 +177,15 @@ def upload_pic():
 def pub():
     return render_template('public_question.html')
 
-@app.route('/halo')
+@app.route('/halo',methods=["GET","POST"])
 def halo():
-    return render_template('halo.html')
+    if request.method == "GET":
+        return render_template('halo.html')
+    else:
+        content = request.form.get("content")
+        answer = ask_ai(content)
+
+        return render_template('halo.html', answer = answer, content = content)
 
 @app.get('/email/code')
 def get_email_code():

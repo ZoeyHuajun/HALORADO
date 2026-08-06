@@ -1,4 +1,4 @@
-#存放所有models
+#存放所有models 所有的数据
 from exts import db
 from sqlalchemy.orm import Mapped, mapped_column,relationship
 from sqlalchemy import Integer, String,Text,Float,DateTime,ForeignKey
@@ -33,6 +33,7 @@ class User(db.Model):
 
     def check_password(self, raw_password):
         return check_password_hash(self._password, raw_password) # 检验是否密码正确
+
     
 class RecipeCategory(db.Model):
      __tablename__="recipe_category"
@@ -40,6 +41,7 @@ class RecipeCategory(db.Model):
      name: Mapped[str] = mapped_column(String(100))
 
      recipes: Mapped[List["Recipes"]] = relationship("Recipes",back_populates="category")
+
 
 class Recipes(db.Model):
      __tablename__="recipes"
@@ -56,6 +58,7 @@ class Recipes(db.Model):
 
      publish_id : Mapped[int] = mapped_column(Integer,ForeignKey("user.id"))
      publisher: Mapped[User] = relationship("User", back_populates="recipes")
+
 
 class VerificationCode(db.Model):
      __tablename__="verification_code"
