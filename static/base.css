@@ -1,17 +1,44 @@
-body {
-    font-family: 'Noto Sans SC', sans-serif;
-    background-color: #f8f9fa;
+/*大商标*/
+.navbar-brand.halorado-name{
+    color:#4ac564;
+    font-size: 55px;
 }
+.navbar-brand.halorado-name:hover{
+    color:#38964d;
+    text-decoration: none;
+}
+.navbar-nav{
+    margin-left: 10px;
+    gap: 10px;
 
+}
+body {
+    font-family: 'Noto Sans SC', sans-serif; /* 字体 */
+    background-color: #f4f8e8;
+}
+/*标签被划分*/
 .category-tab {
+
+    color: #000000;
     transition: all 0.3s ease;
 }
 
 .category-tab:hover {
-    color: #059669;
+    color: #4ac564;
 }
 
 .category-tab.active {
-    color: #059669;
-    border-bottom: 3px solid #059669;
+    color:#4ac564;
+    border-bottom: 3px solid #4ac564;
+}
+
+.tab-bar {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:40px;
+    border: 3px solid gray;
+    border-radius:12px;
+
 }

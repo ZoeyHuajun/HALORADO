@@ -4,26 +4,30 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ url_for('static',filename='jquery/jquery-3.7.1.min.js') }}"></script>
-    <title>HALORADO - {% block title %}{% endblock %}</title>
+    <title>HALORADO - {% block title %}{% endblock %}</title>  <!-- name tab  -->
     {% block head_details %}
     {% endblock %}
 </head>
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-nav">
         <div class="container">
-            <a class="navbar-brand" href="#">HALORADO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand halorado-name" href="/">HALORADO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/"> Home <span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/pub_r">RECIPES</a>
@@ -35,11 +39,11 @@
                         <a class="nav-link" href="/qb">QUESTION BOARD</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/halo">HALO Robot</a>
+                        <a class="nav-link" href="/halo">HALO ROBOT</a>
                     </li>
                     <li class="nav-item ml-2">
                         <form class="form-inline my-2 my-lg-0" method="GET" action="#">
-                            <input class="form-control mr-sm-2" type="search" placeholder="KEY WORD" aria-label="Search" name="q">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Key Word" aria-label="Search" name="q">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </li>
@@ -83,7 +87,7 @@
 
 <div class="bg-white border-b">
     <div class="container mx-auto px-4">
-        <div class="flex overflow-x-auto py-3 space-x-6 hide-scrollbar">
+        <div class="flex overflow-x-auto py-3 hide-scrollbar tab-bar">
             <a href="/" class="category-tab {{ 'active' if category_id==None else '' }} font-medium text-gray-900 whitespace-nowrap">All</a>
             {% for category in categories %}
                 <a href="/?category={{ category.id }}"
