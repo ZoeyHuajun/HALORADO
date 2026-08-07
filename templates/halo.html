@@ -11,31 +11,26 @@
             <div class="col"></div>
                 <div class="col-10">
                     <h1 style="text-align: center;">What can HALO help you today?</h1>
-                    {% if answer %}
-                        <div class="alert alert-secondary" style="margin-top: 20px;">
-                            <strong>HALO:</strong>
-                            {{ answer }}
-                        </div>
-                    {% endif %}
                         <div id="chat-box" style="margin-top: 30px; margin-bottom: 20px;"> 
                             <!-- AI answers will be displayed here later --> </div>
-                            <form action="{{ url_for('halo') }}" method="post" id="chat-form">
+                            <form id="chat-form">
                                 <div class="form-group"> 
                                     <textarea id="message-input" name="content" class="form-control" 
                                     rows="4" placeholder="Please enter your question" >
 
                                     </textarea> 
-                                </div> 
+                                </div>
                                 <div class="form-group" style="text-align: right; margin-top: 10px;"> 
                                     <button type="submit" class="btn btn-primary" > Send 
 
                                     </button> 
                                 </div> 
                             </form>
-                        
-                
                 <div class="col">
-                </div>
+            </div>
         </div>
     </div>
+
+<script src="{{ url_for('static', filename='halo.js') }}" ></script>
+ 
 {% endblock %}

@@ -182,10 +182,11 @@ def halo():
     if request.method == "GET":
         return render_template('halo.html')
     else:
-        content = request.form.get("content")
-        answer = ask_ai(content)
+        data = request.get_json()
+        user_message = data.get("message")
+        answer = ask_ai(user_message)
 
-        return render_template('halo.html', answer = answer, content = content)
+        return jsonify({"result":True, "message":None, "answer":answer})
 
 @app.get('/email/code')
 def get_email_code():
