@@ -7,9 +7,12 @@
     color:#38964d;
     text-decoration: none;
 }
-.navbar-nav{
+.my-navbar-nav{
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
     gap: 10px;
+   
 
 }
 body {

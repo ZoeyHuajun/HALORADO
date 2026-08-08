@@ -8,104 +8,102 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ url_for('static',filename='jquery/jquery-3.7.1.min.js') }}"></script>
-    <title>HALORADO - {% block title %}{% endblock %}</title>  <!-- name tab  -->
+    <title>HALORADO - {% block title %}{% endblock %}</title> <!-- name tab  -->
     {% block head_details %}
     {% endblock %}
 </head>
 
 <body>
-<header>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-nav">
-        <div class="container">
-            <a class="navbar-brand halorado-name" href="/">HALORADO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/"> Home <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pub_r">RECIPES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pub_r">PUBLISH</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qb">QUESTION BOARD</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/halo">HALO ROBOT</a>
-                    </li>
-                    <li class="nav-item ml-2">
-                        <form class="form-inline my-2 my-lg-0" method="GET" action="#">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Key Word" aria-label="Search" name="q">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </li>
-                </ul>
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light my-navbar-nav">
+            <div class="container">
+                <a class="navbar-brand halorado-name" href="/">HALORADO</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse navbar-top" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/"> Home <span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pub_r">RECIPES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pub_r">PUBLISH</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qb">QUESTION BOARD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/halo">HALO ROBOT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse navbar-bottom" id="navbarSupportedContent2">
+                <div class="ml-2">
+                    <form class="form-inline my-2 my-lg-0" method="GET" action="#">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Key Word" aria-label="Search"
+                            name="q">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
                 {% if user %}
-                    <div class="relative group">
-                        <button class="flex items-center space-x-2 text-gray-700 hover:text-green-600 font-medium transition-colors focus:outline-none">
-                            <span>{{ user.username }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <!-- logout-->
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-                            <form method="POST" action="/logout">
-                                <button type="submit"
-                                        class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
+                <div class="dropdown ml-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>{{ user.username }}</span>
+                    </button>
+                    <!-- logout-->
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <form method="POST" action="/logout">
+                            <button class="dropdown-item" type="submit">
+                                Logout
+                            </button>
+                        </form>
                     </div>
+                </div>
                 {% else %}
-                    <!-- login and register -->
-                    <div class="flex items-center space-x-4">
-                        <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
-                            <a href="/login">Login</a>
-                        </button>
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
-                            <!--transfer the page-->
-                            <a href="/register">Register</a>
-                        </button>
-                    </div>
+                <!-- login and register -->
+                <div class="ml-3">
+                    <a class="btn btn-secondary mr-2" href="/login">Login</a>
+                    <a class="btn btn-success" href="/register">
+                        Register
+                    </a>
+                </div>
                 {% endif %}
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
-<div class="bg-white border-b">
-    <div class="container mx-auto px-4">
-        <div class="flex overflow-x-auto py-3 hide-scrollbar tab-bar">
-            <a href="/" class="category-tab {{ 'active' if category_id==None else '' }} font-medium text-gray-900 whitespace-nowrap">All</a>
-            {% for category in categories %}
+    <div class="bg-white border-b">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto py-3 hide-scrollbar tab-bar">
+                <a href="/"
+                    class="category-tab {{ 'active' if category_id==None else '' }} font-medium text-gray-900 whitespace-nowrap">All</a>
+                {% for category in categories %}
                 <a href="/?category={{ category.id }}"
-               class="category-tab font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap {{ 'active' if category_id==category.id else '' }}">{{ category.name }}</a>
-            {% endfor %}
+                    class="category-tab font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap {{ 'active' if category_id==category.id else '' }}">{{
+                    category.name }}</a>
+                {% endfor %}
+            </div>
         </div>
     </div>
-</div>
 
-<main>
-    {% block main %}
-    {% endblock %}
-</main>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
 
-<footer class="bg-light text-center text-lg-start mt-5">
-    <div class="text-center p-3">
-        © 2026 HALORADO. All rights reserved.
-    </div>
-</footer>
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3">
+            © 2026 HALORADO. All rights reserved.
+        </div>
+    </footer>
 </body>
+
 </html>
