@@ -12,9 +12,29 @@
     flex-direction: column;
     margin-left: 10px;
     gap: 10px;
-   
-
 }
+
+.navbar-top{
+    display: flex;
+    justify-content: flex-start;    
+    align-items: center;
+    padding-left: 70px;
+    gap:40px;
+    width:100%
+}
+
+.navbar-nav.mr-auto.navbar-top .nav-link:hover{
+    color:#000000;
+}
+.navbar-bottom{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 360px;
+    gap:30px;
+    width:100%
+}
+
 body {
     font-family: 'Noto Sans SC', sans-serif; /* 字体 */
     background-color: #f4f8e8;
