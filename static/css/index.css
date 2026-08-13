@@ -1,0 +1,18 @@
+.recipe-name-box {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.recipe-name-label a {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #4ac564
+}
+.recipe-name-label a:hover {
+    color: rgb(34, 102, 34);
+    text-decoration: underline;
+}

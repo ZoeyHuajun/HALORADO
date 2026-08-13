@@ -1,0 +1,94 @@
+.publish-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-style {
+    text-align: center;
+    margin-bottom: 20px;
+    color:rgb(34, 102, 34);
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.notation {
+    font-size: 14px;
+    color: #a39f9f;
+    margin-bottom: 10px;
+
+}
+
+.image-upload-box {
+    border: 2px solid #000000;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+.bold {
+    font-weight: 700;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+.submit-button {
+    padding: 10px 20px;
+    background-color: #4ac564;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recipe-name-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+.recipe-name-input:focus {
+    border-color: #4ac564;
+    outline: none;
+}
+.ingredient-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize:vertical;
+    transition: border-color 0.3s ease;
+}
+.ingredient-input:focus {
+    border-color: #4ac564;
+    outline: none;
+}
+
+.publish-form {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}

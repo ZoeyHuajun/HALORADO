@@ -2,48 +2,45 @@
 {% block title %} PUBLISH A RECIPE {% endblock %}
 
 {% block head_details %}
-    <style>
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: #f8f9fa;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/publish.css') }}">
     <script src="{{ url_for('static', filename='pub.js') }}"></script>
 {% endblock %}
 
 {% block main %}
-   <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+   <div class="flex flex-col 0 publish-container">
         <div class="p-6 md:p-8">
-            <h1 class="text-2xl font-bold text-gray-900 mb-6">Publish A Recipe</h1>
+            <h1 class="header-style">Publish A Recipe</h1>
 
             <!-- 图片上传 -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Picture</Picture></label>
-                <div class="flex items-center space-x-4">
-                    <!-- 预览容器 -->
-                    <label for="image-upload" id="image-preview-container"
-                         class="w-56 h-56 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                        <img id="image-preview" class="w-full h-full object-cover rounded-lg hidden" alt="预览图"/>
-                        <div id="image-placeholder" class="text-center px-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mx-auto mb-2"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                            </svg>
-                            <span class="text-sm text-gray-500">Suggestion 224x224 </span>
+                <div class="flex flex-col">
+                    <label class="block text-sm font-medium text-gray-700 mb-2 bold">Picture</label>
+                    <div class="upload-container">
+                        <!-- 预览容器 -->
+                        <label for="image-upload" id="image-preview-container"
+                            class="w-56 h-56 flex flex-col items-center justify-center image-upload-box">
+                            <img id="image-preview" class="w-full h-full object-cover rounded-lg hidden" alt="preview"/>
+                            <div id="image-placeholder" class="text-center px-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mx-auto mb-2"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                                </svg>
+                                <span class="notation">Suggestion 224x224 </span>
+                            </div>
+                            <input type="file" id="image-upload" class="hidden" accept="image/*"/>
+                        </label>
+                        <div class="text-sm text-gray-500 max-w-xs">
+                            Supporting JPG、PNG format 5MB.
                         </div>
-                        <input type="file" id="image-upload" class="hidden" accept="image/*"/>
-                    </label>
-                    <div class="text-sm text-gray-500 max-w-xs">
-                        suporting JPG、PNG format 5MB。
                     </div>
                 </div>
             </div>
-            <form class="space-y-6" method="POST" action="/pub_r" enctype="multipart/form-data">
+            <form class="space-y-6 publish-form" method="POST" action="/pub_r" enctype="multipart/form-data">
                 <input type="hidden" id="picture" name="picture" value=""> <!--value return the url of the picture-->
                 <!-- category -->
                 <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Recipes Category</label>
+                    <label for="category" class="block text-sm font-medium text-gray-700 mb-2 bold">Recipes Category</label>
                     <select id="category"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
                             name="category"
@@ -56,44 +53,42 @@
 
                 <!-- 名称 -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <label for="name" class="bold">Name</label>
                     <input type="text" id="name"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                           class="recipe-name-input"
                            name="name"
                            placeholder="Example: Chicken soup"/>
                 </div>
                 <!-- 食材 -->
                 <div>
-                    <label for="ingredient" class="block text-sm font-medium text-gray-700 mb-2">Ingredient</label>
+                    <label for="ingredient" class="bold">Ingredient</label>
                     <textarea id="ingredient" rows="4"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                              class="ingredient-input"
                               name="ingredient"
                               placeholder="Example: 2 eggs"></textarea>
                 </div>
 
                 <!-- 描述内容 -->
                 <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <label for="description" class="bold">Steps</label>
                     <textarea id="description" rows="4"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                              class="ingredient-input"
                               name="content"
                               placeholder="Steps..."></textarea>
                 </div>
 
                 <!-- 提供者 -->
                 <div>
-                    <label for="supplier" class="block text-sm font-medium text-gray-700 mb-2">Provider Name</label>
+                    <label for="supplier" class="bold">Provider Name</label>
                     <input type="text" id="supplier"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                           class="recipe-name-input"
                            name="provider"
                            placeholder="Example: Zoey"/>
                 </div>
-                </div>
-
                 <!-- 提交按钮 -->
-                <div class="pt-4 flex justify-end">
+                <div class="pt-4 flex submit-button-container">
                     <button type="submit"
-                            class="px-6 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                            class="submit-button">
                         Submit
                     </button>
                 </div>
